@@ -1,0 +1,47 @@
+@page
+@model nscccoursemap_matchacode.Pages.DiplomaProgramYears.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DiplomaProgramYear</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DiplomaProgramYear.Title)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DiplomaProgramYear.Title)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DiplomaProgramYear.DiplomaProgram)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DiplomaProgramYear.DiplomaProgram.Title)
+        </dd>
+         <dt class="col-sm-2">
+            Course Offerings
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var item in Model.DiplomaProgramYear.DiplomaProgramYearSections)
+            {
+                @foreach (var item2 in item.CourseOfferings.OrderByDescending(i2 => i2.Semester.StartDate)
+                .ThenBy(i2 => i2.DiplomaProgramYearSection.DiplomaProgramYear.DiplomaProgram.Title))
+                {
+                <li><b>Course:</b> @item2.Course.CourseCode - @item2.Course.Title
+                    <b>Instructor:</b> @item2.Instructor.FullName 
+                    <b>Directed Elective:</b> @item2.IsDirectedElective
+                </li>
+            }
+        }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.DiplomaProgramYear.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

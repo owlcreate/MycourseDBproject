@@ -1,0 +1,46 @@
+@page
+@model nscccoursemap_matchacode.Pages.Instructors.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Instructor</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Instructor.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Instructor.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Instructor.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Instructor.LastName)
+        </dd>
+          <dt class="col-sm-2">
+            Advising Assignments
+        </dt>
+        <dd class="col-sm-10">
+        @if(Model.Instructor.AdvisingAssignments.Count > 0)
+
+            @foreach (var item in Model.Instructor.AdvisingAssignments
+            .OrderBy(aa => aa.Instructor.AdvisingAssignments)) {
+                <li>
+                    @item.Instructor.AdvisingAssignments - 
+                </li>
+            } else {
+                <span>None</span>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Instructor.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
